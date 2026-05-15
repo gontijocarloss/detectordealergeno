@@ -63,10 +63,10 @@ A comparação é feita com **normalização de acentos e capitalização**, evi
 
 ```bash
 # 1. Clone o repositório
-git clone https://github.com/SEU_USUARIO/tcc-allergen-app.git
+git clone https://github.com/SEU_USUARIO/detectordealergeno.git
 
 # 2. Acesse a pasta
-cd tcc-allergen-app
+cd detectordealergeno
 
 # 3. Instale as dependências
 npm install
@@ -94,7 +94,7 @@ Os arquivos otimizados serão gerados na pasta `dist/`.
 ## 🌐 Acesso Online
 
 A aplicação está hospedada em:  
-🔗 **https://tcc-allergen-app.vercel.app** *(atualizar com o link real)*
+🔗 **https://detectordealergeno.vercel.app** *(atualizar com o link real)*
 
 ---
 
