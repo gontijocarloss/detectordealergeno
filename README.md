@@ -1,69 +1,137 @@
-# Welcome to your Lovable project
+# 🔍 Detector de Alérgenos Alimentares
 
-## Project info
+> Trabalho de Conclusão de Curso — Ciência da Computação — IFMA Campus Imperatriz  
+> Autor: Carlos Sérgio Silva Gontijo
 
-**URL**: https://lovable.dev/projects/84b77402-f8be-49a9-b186-43ce6e6d35c0
+---
 
-## How can I edit this code?
+## 📋 Sobre o Projeto
 
-There are several ways of editing your application.
+Sistema web para detecção de alérgenos em produtos alimentícios por meio da leitura de código de barras. O usuário configura seu perfil de alérgenos e, ao escanear um produto, recebe imediatamente um alerta caso o alimento contenha algum ingrediente de risco.
 
-**Use Lovable**
+Os dados nutricionais e de composição são obtidos em tempo real pela API pública do **Open Food Facts**, base colaborativa com milhões de produtos cadastrados.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/84b77402-f8be-49a9-b186-43ce6e6d35c0) and start prompting.
+---
 
-Changes made via Lovable will be committed automatically to this repo.
+## ✨ Funcionalidades
 
-**Use your preferred IDE**
+- 📷 Leitura de código de barras via câmera do dispositivo
+- ⚠️ Alerta visual imediato quando alérgenos do perfil são detectados
+- 🛡️ Notificação de conformidade quando o produto é seguro
+- 📊 Exibição de Nutri-Score e classificação NOVA do produto
+- 🧪 Tabela nutricional completa (energia, gorduras, carboidratos, proteínas etc.)
+- 🏷️ Lista de alérgenos declarados com destaque para os de risco
+- 💊 Motor de detecção multidimensional (ingredientes + campos de alérgenos + traces)
+- 📱 Interface responsiva para uso em dispositivos móveis
+- 🌙 Suporte a tema claro/escuro
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+---
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## 🧬 Motor de Detecção de Alérgenos
 
-Follow these steps:
+A detecção segue uma abordagem de **três camadas**, conforme descrito no capítulo 5.5 do TCC:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+| Camada | Campo verificado | Descrição |
+|--------|-----------------|-----------|
+| 1 | `ingredients_text` | Texto livre da lista de ingredientes |
+| 2 | `allergens` | Campo estruturado de alérgenos do produto |
+| 3 | `allergens_tags` | Tags normalizadas de alérgenos |
+| 4 | `traces_tags` | Tags de traços (contaminação cruzada) |
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+A comparação é feita com **normalização de acentos e capitalização**, evitando falsos negativos por diferenças de encoding.
 
-# Step 3: Install the necessary dependencies.
-npm i
+---
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+## 🛠️ Tecnologias Utilizadas
+
+| Tecnologia | Finalidade |
+|------------|-----------|
+| [React 18](https://react.dev/) | Interface do usuário |
+| [TypeScript](https://www.typescriptlang.org/) | Tipagem estática |
+| [Vite](https://vitejs.dev/) | Build e servidor de desenvolvimento |
+| [Tailwind CSS](https://tailwindcss.com/) | Estilização |
+| [shadcn/ui](https://ui.shadcn.com/) | Componentes de interface |
+| [ZXing Library](https://github.com/zxing-js/library) | Leitura de código de barras |
+| [react-webcam](https://github.com/mozmorris/react-webcam) | Acesso à câmera |
+| [Open Food Facts API](https://world.openfoodfacts.org/data) | Base de dados de produtos |
+
+---
+
+## 🚀 Como Rodar Localmente
+
+**Pré-requisitos:** Node.js 18+ instalado.
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/SEU_USUARIO/tcc-allergen-app.git
+
+# 2. Acesse a pasta
+cd tcc-allergen-app
+
+# 3. Instale as dependências
+npm install
+
+# 4. Rode o servidor de desenvolvimento
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Acesse **http://localhost:8080** no navegador.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+> ⚠️ A câmera só funciona em conexões seguras (HTTPS) ou em localhost.
 
-**Use GitHub Codespaces**
+---
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📦 Build para Produção
 
-## What technologies are used for this project?
+```bash
+npm run build
+```
 
-This project is built with .
+Os arquivos otimizados serão gerados na pasta `dist/`.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+---
 
-## How can I deploy this project?
+## 🌐 Acesso Online
 
-Simply open [Lovable](https://lovable.dev/projects/84b77402-f8be-49a9-b186-43ce6e6d35c0) and click on Share -> Publish.
+A aplicação está hospedada em:  
+🔗 **https://tcc-allergen-app.vercel.app** *(atualizar com o link real)*
 
-## I want to use a custom domain - is that possible?
+---
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── components/
+│   ├── AllergenScanner.tsx   # Scanner principal + motor de detecção
+│   ├── ProductInfo.tsx       # Exibição dos dados do produto
+│   ├── Hero.tsx              # Seção inicial da página
+│   ├── AllergenFreeSearch.tsx
+│   └── ui/                   # Componentes shadcn/ui
+├── hooks/
+│   └── use-toast.ts
+├── lib/
+│   ├── imageProcessing.ts    # Pré-processamento de imagem para leitura
+│   └── utils.ts
+└── pages/
+    └── Index.tsx
+```
+
+---
+
+## ⚖️ Legislação
+
+Os alérgenos sugeridos seguem a **Resolução RDC nº 26/2015 da ANVISA**, que estabelece a lista obrigatória de substâncias alergênicas a serem declaradas nos rótulos de alimentos comercializados no Brasil.
+
+---
+
+## 📄 Licença
+
+Este projeto foi desenvolvido para fins acadêmicos como Trabalho de Conclusão de Curso no Instituto Federal do Maranhão — IFMA Campus Imperatriz.
+
+---
+
+## 🙏 Agradecimentos
+
+- [Open Food Facts](https://world.openfoodfacts.org/) pela base de dados aberta e gratuita
+- IFMA Campus Imperatriz pela estrutura e orientação acadêmica
